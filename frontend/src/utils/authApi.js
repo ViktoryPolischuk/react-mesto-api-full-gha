@@ -16,12 +16,15 @@ class AuthApi extends BaseApi {
     });
   }
 
-  checkToken(token) {
+  signOut() {
+    return this._fetch('/signout', {
+      method: 'POST',
+    });
+  }
+
+  checkUser() {
     return this._fetch('/users/me', {
       method: 'GET',
-      headers: {
-        authorization: `Bearer ${token}`
-      }
     });
   }
 }

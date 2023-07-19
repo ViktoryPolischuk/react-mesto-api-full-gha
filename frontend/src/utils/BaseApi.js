@@ -8,7 +8,8 @@ class BaseApi {
     return fetch(`${this._baseUrl}${url}`, {
       method,
       body,
-      headers: {...this._headers, ...headers}
+      headers: {...this._headers, ...headers},
+      credentials: 'include'
     })
     .then(res => {
       if (res.ok) {

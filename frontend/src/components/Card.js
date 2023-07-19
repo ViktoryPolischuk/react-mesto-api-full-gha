@@ -3,8 +3,8 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Card({id, name, link, owner, likes, onClick, onCardLike, onCardDelete}) {
   const currentUser = useContext(CurrentUserContext);
-  const isOwn = owner._id === currentUser._id;
-  const isLiked = likes.some(i => i._id === currentUser._id);
+  const isOwn = owner === currentUser._id;
+  const isLiked = likes.some(id => id === currentUser._id);
   const cardLikeButtonClassName =
     `gallery-card__like-button ${isLiked && 'gallery-card__like-button_active'}`;
 

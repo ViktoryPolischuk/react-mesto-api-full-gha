@@ -128,3 +128,7 @@ module.exports.login = (req, res, next) => {
       next(err);
     });
 };
+
+module.exports.logout = (req, res) => res
+  .clearCookie('token')
+  .send({ message: 'Вы успешно вышли' });

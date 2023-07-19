@@ -15,7 +15,6 @@ import ProtectedRoute from './ProtectedRoute';
 import Register from './Register';
 import Login from './Login';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { jwtStorageKey } from '../utils/constants';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -32,17 +31,14 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem(jwtStorageKey);
-    if (token) {
-      authApi.checkToken(token)
-        .then(({data}) => {
-          setUserEmail(data.email);
-          navigate('/', {replace: true});
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    authApi.checkUser()
+      .then(({email}) => {
+        setUserEmail(email);
+        navigate('/', {replace: true});
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [])
 
   useEffect(() => {
@@ -53,7 +49,7 @@ function App() {
       ])
         .then(([userInfo, cards]) => {
           setCurrentUser(userInfo);
-          setCards(cards);
+          setCards(cards.sort((card1, card2) => new Date(card2.createdAt) - new Date(card1.createdAt)));
         })
         .catch((err) => {
           console.log(err);
@@ -163,8 +159,7 @@ function App() {
   function handleLoginSubmit({email, password}) {
     setIsLoading(true);
     authApi.signIn({email, password})
-      .then(({token}) => {
-        localStorage.setItem(jwtStorageKey, token);
+      .then(() => {
         setUserEmail(email);
         navigate('/', {replace: true});
       })
@@ -210,8 +205,17 @@ function App() {
   }
 
   function handleLogout() {
-    localStorage.removeItem(jwtStorageKey);
-    setUserEmail('');
+    setIsLoading(true);
+    authApi.signOut()
+      .then(() => {
+        setUserEmail('');
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
