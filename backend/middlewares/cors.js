@@ -1,5 +1,6 @@
 const ALLOWED_ORIGINS = [
   'http://localhost:3001',
+  'http://mrspolischuk.students.nomoredomains.xyz',
   'https://mrspolischuk.students.nomoredomains.xyz',
 ];
 
