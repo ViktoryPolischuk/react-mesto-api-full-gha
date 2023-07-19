@@ -13,8 +13,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./utils/errors/NotFoundError');
 const { login, createUser, logout } = require('./controllers/users');
 const { validateSignIn, validateSignUp } = require('./utils/validators/users');
-
-const { PORT = 3000 } = process.env;
+const { PORT, DB_URL } = require('./utils/constants');
 
 const app = express();
 
@@ -39,9 +38,7 @@ app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
-  useNewUrlParser: true,
-});
+mongoose.connect(DB_URL, { useNewUrlParser: true });
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
