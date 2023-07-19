@@ -9,13 +9,13 @@
 
 ## Ссылки на проект
 
-IP-адрес 51.250.14.158
+IP 51.250.14.158
 
 Frontend https://mrspolischuk.students.nomoredomains.xyz
 
 Backend https://api.mrspolischuk.students.nomoredomains.xyz
 
-##Stack
+## Stack
 * HTML5
 * CSS
 * JavaScript
