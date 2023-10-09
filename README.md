@@ -38,7 +38,7 @@ Backend https://api.mrspolischuk.students.nomoredomains.xyz
 * Node.js
 * Express
 * MongoDB
-* * ООП
+* ООП
 * Файловая структура Nested БЭМ
 * Адаптивная верстка с использованием grid и flex
 * Работа с API
